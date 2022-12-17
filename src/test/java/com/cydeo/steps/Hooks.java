@@ -1,7 +1,9 @@
 package com.cydeo.steps;
 
+
 import com.cydeo.utility.ConfigurationReader;
 
+import com.cydeo.utility.DB_Util;
 import com.cydeo.utility.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -21,7 +23,6 @@ public class Hooks {
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().get(ConfigurationReader.getProperty("library_url"));
 
-
     }
 
     @After
@@ -36,4 +37,25 @@ public class Hooks {
         Driver.closeDriver();
 
     }
+
+    @Before("@db")
+    public void setupDB(){
+        DB_Util.createConnection();
+        System.out.println("connecting to database.....");
+
+    }
+
+    @After("@db")
+    public void destroyDB(){
+        DB_Util.destroy();
+        System.out.println("closing connection....");
+
+    }
+
+    /*
+    when we run different feature do we need to change tagName from hooks class? from before and after
+        - if we have @db tag over feature/scenario this Hooks (After/Before with db) wil run
+    Since we are doing database if you add @db over related features you dont need change anything from Hook class
+     */
+
 }

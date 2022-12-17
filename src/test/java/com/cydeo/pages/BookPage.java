@@ -8,6 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class BookPage extends BasePage {
+    //*[@id="tbl_books"]/tbody/tr[1]/td[1]/a/i
+    @FindBy(xpath = "//*[@id='tbl_books']/tbody/tr[1]/td[1]/a")
+    public WebElement addBorrowBook;
 
     @FindBy(xpath = "//table/tbody/tr")
     public List<WebElement> allRows;
@@ -35,7 +38,8 @@ public class BookPage extends BasePage {
     @FindBy(id = "description")
     public WebElement description;
 
-
+    @FindBy(xpath = "//*[@id=\"tbl_books\"]/tbody/tr[1]/td[1]/a")
+    public WebElement borrowBook;
 
     public WebElement editBook(String book) {
         String xpath = "//td[3][.='" + book + "']/../td/a";

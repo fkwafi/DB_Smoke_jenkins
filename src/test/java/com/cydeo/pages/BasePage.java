@@ -11,12 +11,14 @@ import org.openqa.selenium.support.PageFactory;
  * provides constructor with initElements method for re-usability
  * abstract - to prevent instantiation.
  */
-public abstract  class BasePage {
+public class BasePage {
 
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    @FindBy(xpath = "//span[@class='title'][.='BorrowingBooks']")
+    public WebElement borrowingBooks;
 
     @FindBy(xpath = "//span[@class='title'][.='Users']")
     public WebElement users;
@@ -33,6 +35,9 @@ public abstract  class BasePage {
     @FindBy(css = "#navbarDropdown>span")
     public WebElement accountHolderName;
 
+    @FindBy(xpath = "//*[@id=\"tbl_books\"]/tbody/tr")
+    public WebElement bookFirstRowDetails;
+
     @FindBy(linkText = "Log Out")
     public WebElement logOutLink;
 
@@ -40,6 +45,8 @@ public abstract  class BasePage {
         accountHolderName.click();
         logOutLink.click();
     }
+
+
 
     public void navigateModule(String moduleName){
         Driver.getDriver().findElement(By.xpath("//span[@class='title'][.='"+moduleName+"']")).click();
